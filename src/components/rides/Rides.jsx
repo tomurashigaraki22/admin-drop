@@ -13,7 +13,7 @@ function Rides() {
   const fetchRides = async () => {
     try {
       setIsLoading(true)
-      const response = await fetch('http://51.20.79.138:1235/get-all-rides')
+      const response = await fetch('https://foal-live-purely.ngrok-free.app/get-all-rides')
       const data = await response.json()
       if (data.status === 200) {
         setRides(data.data)

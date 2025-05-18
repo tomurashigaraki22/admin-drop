@@ -57,7 +57,7 @@ function Dashboard() {
 
   const fetchSubscriptionRevenue = async () => {
     try {
-      const response = await fetch('http://51.20.79.138:1235/get-subscription-revenue')
+      const response = await fetch('https://foal-live-purely.ngrok-free.app/get-subscription-revenue')
       const data = await response.json()
       if (data.status === 200) {
         setSubscriptionRevenue(data.data)
@@ -69,7 +69,7 @@ function Dashboard() {
 
   const fetchDashboardStats = async () => {
     try {
-      const response = await fetch('http://51.20.79.138:1235/get-dashboard-stats')
+      const response = await fetch('https://foal-live-purely.ngrok-free.app/get-dashboard-stats')
       const data = await response.json()
       if (data.status === 200) {
         console.log("Dash stats: ", data)
@@ -82,7 +82,7 @@ function Dashboard() {
 
   const fetchMonthlySignups = async () => {
     try {
-      const response = await fetch('http://51.20.79.138:1235/get-monthly-signups')
+      const response = await fetch('https://foal-live-purely.ngrok-free.app/get-monthly-signups')
       const data = await response.json()
       if (data.status === 200) {
         setMonthlySignups(data.data)

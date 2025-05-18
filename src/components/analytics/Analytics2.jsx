@@ -52,7 +52,7 @@ function Analytics2() {
 
   const fetchAnalyticsData = async () => {
     try {
-      const response = await fetch('http://51.20.79.138:1235/get-analytics-data')
+      const response = await fetch('https://foal-live-purely.ngrok-free.app/get-analytics-data')
       const data = await response.json()
       if (data.status === 200) {
         setAnalyticsData(data.data)
@@ -64,7 +64,7 @@ function Analytics2() {
 
   const fetchSubscriptionRevenue = async () => {
     try {
-      const response = await fetch('http://51.20.79.138:1235/get-subscription-revenue')
+      const response = await fetch('https://foal-live-purely.ngrok-free.app/get-subscription-revenue')
       const data = await response.json()
       if (data.status === 200) {
         setSubscriptionRevenue(data.data)
@@ -76,7 +76,7 @@ function Analytics2() {
 
   const fetchDriverStats = async () => {
     try {
-      const response = await fetch('http://51.20.79.138:1235/get-driver-verification-stats')
+      const response = await fetch('https://foal-live-purely.ngrok-free.app/get-driver-verification-stats')
       const data = await response.json()
       if (data.status === 200) {
         setDriverStats(data.data)

@@ -12,7 +12,7 @@ function Users() {
   const fetchUsers = async () => {
     try {
       setIsLoading(true)
-      const response = await fetch('http://51.20.79.138:1235/get-all-users')
+      const response = await fetch('https://foal-live-purely.ngrok-free.app/get-all-users')
       const data = await response.json()
       console.log("data: ", data)
       console.log("response: ", response)
