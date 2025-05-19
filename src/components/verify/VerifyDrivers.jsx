@@ -16,7 +16,7 @@ function VerifyDrivers() {
   const fetchDrivers = async () => {
     try {
       setIsLoading(true)
-      const response = await fetch('https://foal-live-purely.ngrok-free.app/get-all-users')
+      const response = await fetch('https://dropserver.shop/get-all-users')
       const data = await response.json()
       if (data.status === 200) {
         // Filter only drivers
@@ -32,7 +32,7 @@ function VerifyDrivers() {
 
   const fetchVerificationDetails = async () => {
     try {
-      const response = await fetch('https://foal-live-purely.ngrok-free.app/getVerificationDetails')
+      const response = await fetch('https://dropserver.shop/getVerificationDetails')
       const data = await response.json()
       if (data.verificationdetails) {
         console.log("data verification: ", data)
@@ -45,7 +45,7 @@ function VerifyDrivers() {
 
   const updateVerificationStatus = async (email, status) => {
     try {
-      const response = await fetch(`https://foal-live-purely.ngrok-free.app/updateVerificationStatus/${email}`, {
+      const response = await fetch(`https://dropserver.shop/updateVerificationStatus/${email}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
