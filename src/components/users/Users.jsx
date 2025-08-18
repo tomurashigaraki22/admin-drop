@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { BiTrash } from 'react-icons/bi'
 
 function Users() {
   const [users, setUsers] = useState([])
@@ -28,6 +29,27 @@ function Users() {
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value)
+  }
+
+  const deleteUser = async (email) => {
+    try {
+      const response = await fetch('https://dropserver.shop/deleteUser', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email })
+      })
+      const data = await response.json()
+      if (response.ok === 200) {
+        setUsers(users.filter(user => user.email !== email))
+        alert('User deleted successfully')
+      }
+      alert("User deleted successfully")
+    } catch (error) {
+      alert("Error deleting User")
+      console.error('Error deleting user:', error)
+    }
   }
 
   const filteredUsers = users.filter(user => 
@@ -76,6 +98,9 @@ function Users() {
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Verification Status
                     </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Action
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
@@ -86,6 +111,9 @@ function Users() {
                         <td className="px-6 py-4 whitespace-nowrap">{user.phone_number}</td>
                         <td className="px-6 py-4 whitespace-nowrap">{user.user_type}</td>
                         <td className="px-6 py-4 whitespace-nowrap">{getVerificationStatus(user)}</td>
+                        <td className='px-6 py-4 whitespace-nowrap'>
+                          <BiTrash className='text-red-500 cursor-pointer' onClick={() => deleteUser(user.email)}/>
+                        </td>
                       </tr>
                     ))
                   ) : (
