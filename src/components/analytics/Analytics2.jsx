@@ -52,7 +52,7 @@ function Analytics2() {
 
   const fetchAnalyticsData = async () => {
     try {
-      const response = await fetch('https://dropserver.shop/get-analytics-data')
+      const response = await fetch('http://192.168.1.151:1234/get-analytics-data')
       const data = await response.json()
       if (data.status === 200) {
         setAnalyticsData(data.data)
@@ -64,7 +64,7 @@ function Analytics2() {
 
   const fetchSubscriptionRevenue = async () => {
     try {
-      const response = await fetch('https://dropserver.shop/get-subscription-revenue')
+      const response = await fetch('http://192.168.1.151:1234/get-subscription-revenue')
       const data = await response.json()
       if (data.status === 200) {
         setSubscriptionRevenue(data.data)
@@ -76,7 +76,7 @@ function Analytics2() {
 
   const fetchDriverStats = async () => {
     try {
-      const response = await fetch('https://dropserver.shop/get-driver-verification-stats')
+      const response = await fetch('http://192.168.1.151:1234/get-driver-verification-stats')
       const data = await response.json()
       if (data.status === 200) {
         setDriverStats(data.data)

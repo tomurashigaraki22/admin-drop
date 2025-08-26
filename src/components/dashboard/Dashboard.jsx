@@ -58,7 +58,7 @@ function Dashboard() {
 
   const fetchSubscriptionRevenue = async () => {
     try {
-      const response = await fetch('https://dropserver.shop/get-subscription-revenue')
+      const response = await fetch('http://192.168.1.151:1234/get-subscription-revenue')
       const data = await response.json()
       if (data.status === 200) {
         setSubscriptionRevenue(data.data)
@@ -70,7 +70,7 @@ function Dashboard() {
 
   const fetchDashboardStats = async () => {
     try {
-      const response = await fetch('https://dropserver.shop/get-dashboard-stats')
+      const response = await fetch('http://192.168.1.151:1234/get-dashboard-stats')
       const data = await response.json()
       if (data.status === 200) {
         console.log("Dash stats: ", data)
@@ -83,7 +83,7 @@ function Dashboard() {
 
   const fetchMonthlySignups = async () => {
     try {
-      const response = await fetch('https://dropserver.shop/get-monthly-signups')
+      const response = await fetch('http://192.168.1.151:1234/get-monthly-signups')
       const data = await response.json()
       if (data.status === 200) {
         setMonthlySignups(data.data)

@@ -7,6 +7,7 @@ import Analytics2 from './components/analytics/Analytics2'
 import Rides from './components/rides/Rides'
 import Sidebar from './components/Sidebar'
 import VerifyDrivers from './components/verify/VerifyDrivers'
+import AdminScreen from './components/admin/AdminUsers'
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -43,6 +44,7 @@ function App() {
                 <Route path="/rides" element={<Rides />} />
                 <Route path="*" element={<Navigate to="/" />} />
                 <Route path='/verify-drivers' element={<VerifyDrivers/>} />
+                <Route path="/admin-users" element={<AdminScreen/>} />
               </Routes>
             </main>
           </div>

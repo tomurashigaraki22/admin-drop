@@ -1,12 +1,48 @@
-import { NavLink } from 'react-router-dom'
-import { MdDashboard, MdAnalytics, MdLogout } from 'react-icons/md'
-import { FaUsers, FaCar, FaUserCheck, FaBars } from 'react-icons/fa'
-import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+# Sidebar Update
 
+## Overview
+This document describes the changes to the Sidebar component to include navigation to admin management pages.
+
+## Current Implementation
+The current sidebar has navigation items for:
+- Dashboard
+- Users
+- Analytics
+- Rides
+- Verify Drivers
+
+## Updated Implementation
+
+### New Navigation Items
+We will add an "Admin Accounts" item to the sidebar menu that links to the admin accounts management page.
+
+### Updated Menu Items Structure
+```javascript
+const menuItems = [
+  { path: '/', label: 'Dashboard', icon: MdDashboard },
+  { path: '/users', label: 'Users', icon: FaUsers },
+  { path: '/drop-analytics', label: 'Analytics', icon: MdAnalytics },
+  { path: '/rides', label: 'Rides', icon: FaCar },
+  {
+    label: 'Verify Drivers',
+    icon: FaUserCheck,
+    path: '/verify-drivers'
+  },
+  {
+    label: 'Admin Accounts',
+    icon: FaUserShield, // New icon for admin accounts
+    path: '/admin-accounts'
+  }
+];
+```
+
+### Component Integration
+The updated Sidebar component will include the new navigation item:
+
+```jsx
 function Sidebar() {
-  const navigate = useNavigate()
-  const [isCollapsed, setIsCollapsed] = useState(false)
+  const navigate = useNavigate();
+  const [isCollapsed, setIsCollapsed] = useState(false);
   
   const menuItems = [
     { path: '/', label: 'Dashboard', icon: MdDashboard },
@@ -19,17 +55,19 @@ function Sidebar() {
       path: '/verify-drivers'
     },
     {
-      path: '/admin-users',
-      icon: FaUserCheck,
-      label: 'Admin Users'
+      label: 'Admin Accounts',
+      icon: FaUserShield,
+      path: '/admin-accounts'
     }
-  ]
+  ];
 
   const handleLogout = () => {
-    localStorage.removeItem('isAuthenticated')
-    navigate('/login')
-    window.location.reload()
-  }
+    localStorage.removeItem('isAuthenticated');
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('adminEmail');
+    navigate('/login');
+    window.location.reload();
+  };
 
   return (
     <aside className={`${
@@ -72,7 +110,17 @@ function Sidebar() {
         {!isCollapsed && 'Logout'}
       </button>
     </aside>
-  )
+  );
 }
+```
 
-export default Sidebar
+### Icon Requirements
+We need to import the `FaUserShield` icon from `react-icons/fa` for the admin accounts menu item.
+
+### Integration Points
+- React Router for navigation
+- React Icons for UI elements
+- Authentication state management in logout handler
+
+## Security Considerations
+The admin accounts page should only be accessible to authenticated administrators, which will be handled by route protection.
