@@ -9,7 +9,7 @@ export default function AdminScreen() {
   // Fetch admins
   const fetchAdmins = async () => {
     try {
-      const res = await fetch("http://192.168.1.151:1234/admin/list");
+      const res = await fetch("https://dropserver.shop/admin/list");
       const data = await res.json();
       if (data.status === "success") {
         setAdmins(data.admins);
@@ -30,7 +30,7 @@ export default function AdminScreen() {
       return;
     }
     try {
-      const res = await fetch("http://192.168.1.151:1234/admin/register", {
+      const res = await fetch("https://dropserver.shop/admin/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -54,7 +54,7 @@ export default function AdminScreen() {
     if (!window.confirm("Are you sure you want to delete this admin?")) return;
     setLoadingId(id);
     try {
-      const res = await fetch(`http://192.168.1.151:1234/admin/delete/${id}`, {
+      const res = await fetch(`https://dropserver.shop/admin/delete/${id}`, {
         method: "DELETE",
       });
       const data = await res.json();

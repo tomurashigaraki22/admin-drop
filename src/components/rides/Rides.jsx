@@ -13,7 +13,7 @@ function Rides() {
   const fetchRides = async () => {
     try {
       setIsLoading(true)
-      const response = await fetch('http://192.168.1.151:1234/get-all-rides')
+      const response = await fetch('https://dropserver.shop/get-all-rides')
       const data = await response.json()
       if (data.status === 200) {
         setRides(data.data)

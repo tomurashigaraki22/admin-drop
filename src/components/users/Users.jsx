@@ -13,7 +13,7 @@ function Users() {
   const fetchUsers = async () => {
     try {
       setIsLoading(true)
-      const response = await fetch('http://192.168.1.151:1234/get-all-users')
+      const response = await fetch('https://dropserver.shop/get-all-users')
       const data = await response.json()
       console.log("data: ", data)
       console.log("response: ", response)
@@ -33,7 +33,7 @@ function Users() {
 
   const deleteUser = async (email) => {
     try {
-      const response = await fetch('http://192.168.1.151:1234/deleteUser', {
+      const response = await fetch('https://dropserver.shop/deleteUser', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
