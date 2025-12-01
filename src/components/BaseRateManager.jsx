@@ -1,12 +1,73 @@
-import { useState } from 'react';
-import { useBaseRate } from '../hooks/useBaseRate';
+import { useState, useEffect } from 'react';
+
+const BIN_ID = "692cfad0ae596e708f7b442a";
+const MASTER_KEY = "$2a$10$5x.BCszwTo3bpSC9Hw/ULOKiwymiCYXGu563gmCsYdMgqGu3AAn7G";
+const API_BASE = "https://api.jsonbin.io/v3/b";
+
+async function getBaseRate() {
+    try {
+        const response = await fetch(`${API_BASE}/${BIN_ID}/latest`, {
+            method: "GET",
+            headers: {
+                "X-Master-Key": MASTER_KEY,
+                "Content-Type": "application/json",
+            },
+        });
+        const data = await response.json();
+        return data.record.base_rate;
+    } catch (err) {
+        console.error("Failed to fetch base rate:", err);
+        return null;
+    }
+}
+
+async function setBaseRate(newRate) {
+    try {
+        const response = await fetch(`${API_BASE}/${BIN_ID}`, {
+            method: "PUT",
+            headers: {
+                "X-Master-Key": MASTER_KEY,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ base_rate: newRate }),
+        });
+        const data = await response.json();
+        return data.record.base_rate;
+    } catch (err) {
+        console.error("Failed to update base rate:", err);
+        return null;
+    }
+}
 
 export const BaseRateManager = () => {
-    const [rate, setRate, isLoading, error] = useBaseRate();
-    const [inputValue, setInputValue] = useState(rate);
+    const [rate, setRate] = useState(0);
+    const [inputValue, setInputValue] = useState(0);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState("");
 
-    // Update input value when rate changes
-    useState(() => {
+    useEffect(() => {
+        let mounted = true;
+        const loadRate = async () => {
+            setIsLoading(true);
+            setError("");
+            const current = await getBaseRate();
+            if (mounted) {
+                if (typeof current === "number" && !isNaN(current)) {
+                    setRate(current);
+                    setInputValue(current);
+                } else {
+                    setError("Failed to fetch base rate");
+                }
+                setIsLoading(false);
+            }
+        };
+        loadRate();
+        return () => {
+            mounted = false;
+        };
+    }, []);
+
+    useEffect(() => {
         setInputValue(rate);
     }, [rate]);
 
@@ -14,7 +75,16 @@ export const BaseRateManager = () => {
         e.preventDefault();
         const newRate = parseFloat(inputValue);
         if (!isNaN(newRate) && newRate > 0) {
-            await setRate(newRate);
+            setIsLoading(true);
+            setError("");
+            const updated = await setBaseRate(newRate);
+            if (typeof updated === "number" && !isNaN(updated)) {
+                setRate(updated);
+                setInputValue(updated);
+            } else {
+                setError("Failed to update base rate");
+            }
+            setIsLoading(false);
         }
     };
 
@@ -66,4 +136,4 @@ export const BaseRateManager = () => {
             </div>
         </div>
     );
-}; 
+};
