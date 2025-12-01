@@ -5,35 +5,29 @@ function Login({ setIsAuthenticated }) {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setError('')
+const handleSubmit = (e) => {
+  e.preventDefault();
+  setError('');
 
-    try {
-      const response = await fetch('https://dropserver.shop/admin/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      })
+  // Hardcoded credentials
+  const validEmail = 'dropapp@gmail.com';
+  const validPassword = 'Pityboy@22';
 
-      const data = await response.json()
+  if (email === validEmail && password === validPassword) {
+    // ✅ Save login session
+    setIsAuthenticated(true);
+    localStorage.setItem('isAuthenticated', 'true');
+    localStorage.setItem('adminEmail', validEmail);
+    localStorage.setItem('adminId', '1'); // You can set a fixed ID or any value
 
-      if (response.ok && data.status === 'success') {
-        // ✅ Save login session
-        setIsAuthenticated(true)
-        localStorage.setItem('isAuthenticated', 'true')
-        localStorage.setItem('adminEmail', data.user.email)
-        localStorage.setItem('adminId', data.user.id)
-      } else {
-        setError(data.message || 'Invalid credentials')
-      }
-    } catch (err) {
-      console.error('Login error:', err)
-      setError('Server error. Please try again later.')
-    }
+    console.log('Login successful');
+    // Optional: redirect to dashboard
+    // navigate('/dashboard'); 
+  } else {
+    // Login failed
+    setError('Invalid email or password');
   }
+};
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#111111]">

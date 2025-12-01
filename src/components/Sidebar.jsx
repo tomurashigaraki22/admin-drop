@@ -17,11 +17,6 @@ function Sidebar() {
       label: 'Verify Drivers',
       icon: FaUserCheck,
       path: '/verify-drivers'
-    },
-    {
-      path: '/admin-users',
-      icon: FaUserCheck,
-      label: 'Admin Users'
     }
   ]
 
